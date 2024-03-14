@@ -59,7 +59,7 @@ async function addNewStoryOnPage() {
   const newStory = { title, author, url };
   await storyList.addStory(currentUser, newStory);
   putStoriesOnPage();
-
+  $newStoryForm.reset();
   $newStoryForm.hide();  
 }
 
