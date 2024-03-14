@@ -50,6 +50,15 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+/**Deletes story from storyList */
+async function deleteStory(evt){
+  console.debug("deleteStory");
+  const $closestLi = $(evt.target).closest("li");
+  storyId = $closestLi.attr("id");
+  await storyList.removeStory(currentUser, storyId);
+  putStoriesOnPage();
+}
+$userStoriesList.on("click", ".trash-can", deleteStory);
 /** Adds a user submitted story from the newStoryForm on submit button click */
 async function addNewStoryOnPage() {
   console.debug("addNewStoryOnPage");

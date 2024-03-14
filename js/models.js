@@ -83,6 +83,16 @@ class StoryList {
     this.stories.unshift(story);
     user.ownStories.unshift(story);
   }
+  async removeStory(user, storyId) {
+    const response = await axios({
+      url: `${BASE_URL}/stores/${storyId}`,
+      method: "DELETE",
+      data: { token: user.loginToken },
+    });
+    this.stories = this.stories.filter((s) => s.storyId!== storyId);
+    user.ownStories = user.ownStories.filter((s) => s.storyId!== storyId);
+    user.favorites = user.favorites.filter((s) => s.storyId!== storyId);
+  }
 }
 
 /******************************************************************************
@@ -215,7 +225,7 @@ class User {
     });
   }
   /** Returns boolean if instance of Story is user favorite */
-  isFavorite(story){
-    return this.favorites.some(s =>(s.storyId === story.storyId));
+  isFavorite(story) {
+    return this.favorites.some((s) => s.storyId === story.storyId);
   }
 }
