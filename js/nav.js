@@ -51,3 +51,11 @@ function navMyStoriesClick(evt) {
   addUserStoriesOnPage();
 }
 $navMyStories.on('click', navMyStoriesClick);
+
+/**When a user clicks on favorites, show user favorites list */
+function navFavoritesClick(evt){
+  console.debug("navFavoritesClick", evt);
+  hidePageComponents();
+  addFavoritedStoriesOnPage();
+}
+$navFavorites.on('click', navFavoritesClick);

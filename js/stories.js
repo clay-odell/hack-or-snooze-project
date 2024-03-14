@@ -51,7 +51,7 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 /**Deletes story from storyList */
-async function deleteStory(evt){
+async function deleteStory(evt) {
   console.debug("deleteStory");
   const $closestLi = $(evt.target).closest("li");
   storyId = $closestLi.attr("id");
@@ -65,13 +65,13 @@ async function addNewStoryOnPage() {
   const title = $("#new-story-title").val();
   const author = $("#new-story-author").val();
   const url = $("#new-story-url").val();
-  const username = currentUser.username
-  const newStoryData = {username, title, author, url };
+  const username = currentUser.username;
+  const newStoryData = { username, title, author, url };
   const story = await storyList.addStory(currentUser, newStoryData);
   const $story = generateStoryMarkup(story);
   $allStoriesList.prepend($story);
   $newStoryForm.reset();
-  $newStoryForm.hide();  
+  $newStoryForm.hide();
 }
 
 $("#story-submit").on("click", addNewStoryOnPage);
@@ -79,13 +79,30 @@ $("#story-submit").on("click", addNewStoryOnPage);
 async function addUserStoriesOnPage() {
   console.debug("addUserStoriesOnPage");
   $userStoriesList.empty();
-  if(currentUser.ownStories.length === 0){
-    $userStoriesList.append(`<li>${currentUser.username} hasn't submitted any stories.</li>`);
+  if (currentUser.ownStories.length === 0) {
+    $userStoriesList.append(
+      `<h4>${currentUser.username} hasn't submitted any stories.</h4>`
+    );
   } else {
-    for(let story of currentUser.ownStories){
-      let $story = generateStoryMarkup(story, true);
+    for (let story of currentUser.ownStories) {
+      const $story = generateStoryMarkup(story, true);
       $userStoriesList.append($story);
     }
   }
   $userStoriesList.show();
+}
+async function addFavoritedStoriesOnPage() {
+  console.debug("addFavoritedStoriesOnPage");
+  $favoritesList.empty();
+  if (currentUser.favorites.length === 0) {
+    $favoritesList.append(
+      `<h4>${currentUser.username} hasn't favorited any stories.</h4>`
+    );
+  } else {
+    for (let story of currentUser.favorites) {
+      const $story = generateStoryMarkup(story);
+      $favoritesList.append($story);
+    }
+  }
+  $favoritesList.show();
 }
