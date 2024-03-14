@@ -50,7 +50,7 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
-
+/** Adds a user submitted story from the newStoryForm on submit button click */
 async function addNewStoryOnPage() {
   console.debug("addNewStoryOnPage");
   const title = $("#new-story-title").val();
