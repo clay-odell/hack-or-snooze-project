@@ -59,3 +59,12 @@ function navFavoritesClick(evt){
   addFavoritedStoriesOnPage();
 }
 $navFavorites.on('click', navFavoritesClick);
+
+function navUserProfileClick(evt) {
+  console.debug("navUserProfileClick", evt);
+  hidePageComponents();
+  $userProfile.show();
+  generateUserProfile();
+  
+}
+$navUserProfile.on('click', navUserProfileClick);
