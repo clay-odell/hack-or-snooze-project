@@ -56,11 +56,27 @@ async function addNewStoryOnPage() {
   const title = $("#new-story-title").val();
   const author = $("#new-story-author").val();
   const url = $("#new-story-url").val();
-  const newStory = { title, author, url };
-  await storyList.addStory(currentUser, newStory);
-  putStoriesOnPage();
+  const username = currentUser.username
+  const newStoryData = {username, title, author, url };
+  const story = await storyList.addStory(currentUser, newStoryData);
+  const $story = generateStoryMarkup(story);
+  $allStoriesList.prepend($story);
   $newStoryForm.reset();
   $newStoryForm.hide();  
 }
 
 $("#story-submit").on("click", addNewStoryOnPage);
+
+async function addUserStoriesOnPage() {
+  console.debug("addUserStoriesOnPage");
+  $userStoriesList.empty();
+  if(currentUser.ownStories.length === 0){
+    $userStoriesList.append(`<li>${currentUser.username} hasn't submitted any stories.</li>`);
+  } else {
+    for(let story of currentUser.ownStories){
+      let $story = generateStoryMarkup(story, true);
+      $userStoriesList.append($story);
+    }
+  }
+  $userStoriesList.show();
+}

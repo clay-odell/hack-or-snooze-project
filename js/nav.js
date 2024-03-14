@@ -48,6 +48,6 @@ $navSubmit.on('click', navSubmitClick);
 function navMyStoriesClick(evt) {
   console.debug("navMyStoriesClick", evt);
   hidePageComponents();
-  $userStoriesList.show();
+  addUserStoriesOnPage();
 }
 $navMyStories.on('click', navMyStoriesClick);
