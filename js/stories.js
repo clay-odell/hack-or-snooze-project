@@ -34,7 +34,20 @@ function generateStoryMarkup(story) {
       </li>
     `);
 }
-
+/** Get Delete Button HTML */
+function getDeleteButtonHTML(){
+  return`<span class="trash-can">
+    <i class="fa fa-trash></i>
+    </span>`;
+}
+/** The HTML for a favorite star based on whether it is or isn't a favorited story */
+function getFavoriteStarHTML(story, user) {
+  const isFavorite = user.isFavorite(story);
+  const starType = isFavorite ? "fas" : "far"; 
+  return `<span class=star">
+  <i class="${starType} fa-star"></i>
+  </span>`;
+}
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
