@@ -43,3 +43,11 @@ function navSubmitClick(evt) {
   $newStoryForm.show();
 }
 $navSubmit.on('click', navSubmitClick);
+
+/** When a user clicks on my_stories, show user stories list */
+function navMyStoriesClick(evt) {
+  console.debug("navMyStoriesClick", evt);
+  hidePageComponents();
+  $userStoriesList.show();
+}
+$navMyStories.on('click', navMyStoriesClick);
