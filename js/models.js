@@ -205,6 +205,7 @@ class User {
     this.favorites = this.favorites.filter((s) => s !== story);
     await this.addOrRemoveFavorite("remove", story);
   }
+  /** Updates API on added/removed favorites */
   async addOrRemoveFavorite(newState, story) {
     const method = newState === "add" ? "POST" : "DELETE";
     const response = await axios({
@@ -213,6 +214,7 @@ class User {
       token: this.loginToken,
     });
   }
+  /** Returns boolean if instance of Story is user favorite */
   isFavorite(story){
     return this.favorites.some(s =>(s.storyId === story.storyId));
   }
