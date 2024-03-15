@@ -82,6 +82,7 @@ class StoryList {
     const story = new Story(response.data.story);
     this.stories.unshift(story);
     user.ownStories.unshift(story);
+    return story;
   }
   async removeStory(user, storyId) {
     const response = await axios({
