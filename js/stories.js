@@ -23,10 +23,12 @@ function generateStoryMarkup(story, showDeleteButton = false) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+  const showFavoriteButton = Boolean(currentUser);
   return $(`
       <li id="${story.storyId}">
       <div>
-      ${showDeleteButton ? getDeleteButtonHTML(story, currentUser): ""}
+      ${showDeleteButton ? getDeleteButtonHTML(): ""}
+      ${showFavoriteButton ? getFavoriteButtonHTML(story, currentUser) : ""}
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -44,12 +46,18 @@ function getDeleteButtonHTML(){
   </span>`;
 }
 
-/** The HTML for a favorite star based on whether it is or isn't a favorited story */
-
+/** The HTML for a favorite button based on whether it is or isn't a favorited story */
+function getFavoriteButtonHTML(story, user){
+  const isFavorite = user.isFavorite(story);
+  const buttonType = isFavorite ? "fas" : "far";
+  return `<span class="favorite">
+  <i class="${buttonType} fa-arrow-alt-circle-up"></i>
+  </span>`;
+}
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
-  console.debug("putStoriesOnPage");
+  // console.debug("putStoriesOnPage");
 
   $allStoriesList.empty();
 
@@ -63,7 +71,7 @@ function putStoriesOnPage() {
 }
 /**Deletes story from storyList */
 async function deleteStory(evt) {
-  console.debug("deleteStory");
+  // console.debug("deleteStory");
   const $closestLi = $(evt.target).closest("li");
   const storyId = $closestLi.attr("id");
   await storyList.removeStory(currentUser, storyId);
@@ -90,7 +98,7 @@ async function addNewStoryOnPage(evt) {
 $("#story-submit").on("click", addNewStoryOnPage);
 
 async function addUserStoriesOnPage() {
-  console.debug("addUserStoriesOnPage");
+  // console.debug("addUserStoriesOnPage");
   $userStoriesList.empty();
   if (currentUser.ownStories.length === 0) {
     $userStoriesList.append(
@@ -105,7 +113,7 @@ async function addUserStoriesOnPage() {
   $userStoriesList.show();
 }
 async function addFavoritedStoriesOnPage() {
-  console.debug("addFavoritedStoriesOnPage");
+  // console.debug("addFavoritedStoriesOnPage");
   $favoritesList.empty();
   if (currentUser.favorites.length === 0) {
     $favoritesList.append(
@@ -119,3 +127,19 @@ async function addFavoritedStoriesOnPage() {
   }
   $favoritesList.show();
 }
+async function toggleStoryFavorite(evt){
+  const $target = $(evt.target);
+  const $closestLi = $target.closest("li");
+  const storyId = $closestLi.attr("id");
+  console.log(`storyId: ${storyId}`);
+  const story = storyList.stories.find(s => s.storyId === storyId);
+  console.log(`story: ${JSON.stringify(story)}`); 
+  if ($target.hasClass("fas")){
+    await currentUser.removeFavorite(story);
+    $target.closest("i").toggleClass("fas far");
+  } else {
+    await currentUser.addFavorite(story);
+    $target.closest("i").toggleClass("fas far");
+  }
+}
+$storiesList.on("click", ".favorite", toggleStoryFavorite);

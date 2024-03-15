@@ -213,21 +213,21 @@ class User {
   }
   /** Removes story from user favorites */
   async removeFavorite(story) {
-    this.favorites = this.favorites.filter((s) => s !== story);
+    this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
     await this.addOrRemoveFavorite("remove", story);
   }
   /** Updates API on added/removed favorites */
   async addOrRemoveFavorite(newState, story) {
     const method = newState === "add" ? "POST" : "DELETE";
     const token = this.loginToken;
-    const response = await axios({
+    await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
       method: method,
-      data: {token},
+      data: { token },
     });
   }
   /** Returns boolean if instance of Story is user favorite */
   isFavorite(story) {
-    return this.favorites.some((s) => s.storyId === story.storyId);
+    return this.favorites.some(s => (s.storyId === story.storyId));
   }
 }
