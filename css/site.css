@@ -3,13 +3,18 @@
 body {
   font-family: Arimo, sans-serif;
   margin: 8px 7.5vw;
+  height: 100vh;
+  background-image: radial-gradient(circle, rgb(238, 174, 202) 0%, rgb(148, 187, 233) 100%);
 }
 
 h1 {
   font-size: 1.1rem;
   margin: 0;
 }
-
+h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
 h4 {
   font-size: 1rem;
   margin: 0;
