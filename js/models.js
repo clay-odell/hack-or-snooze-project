@@ -222,7 +222,7 @@ class User {
     const response = await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
       method: method,
-      token: this.loginToken,
+      data: {token: this.loginToken},
     });
   }
   /** Returns boolean if instance of Story is user favorite */
