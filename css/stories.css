@@ -13,9 +13,7 @@
   border-bottom: 1px solid #e5e5e5;
   padding-bottom: 10px;
 }
-.stories-list > li > hr{
-  border: 0.5px solid lightgray;
-}
+
 #stories-loading-msg {
   font-weight: bold;
   font-size: 150%;
@@ -41,8 +39,9 @@
 .story-link {
   color: black;
   font-size: 0.85rem;
-  font-weight: normal;
-  margin: 18px 0;
+  font-weight: 550;
+  margin: 18px 0px;
+  
 }
 
 .story-link:hover {
