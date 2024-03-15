@@ -86,7 +86,7 @@ class StoryList {
   }
   async removeStory(user, storyId) {
     const response = await axios({
-      url: `${BASE_URL}/stores/${storyId}`,
+      url: `${BASE_URL}/stories/${storyId}`,
       method: "DELETE",
       data: { token: user.loginToken },
     });
@@ -219,10 +219,11 @@ class User {
   /** Updates API on added/removed favorites */
   async addOrRemoveFavorite(newState, story) {
     const method = newState === "add" ? "POST" : "DELETE";
+    const token = this.loginToken;
     const response = await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
       method: method,
-      data: {token: this.loginToken},
+      data: {token},
     });
   }
   /** Returns boolean if instance of Story is user favorite */

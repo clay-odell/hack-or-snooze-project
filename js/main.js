@@ -5,6 +5,7 @@
 const $body = $("body");
 
 const $storiesLoadingMsg = $("#stories-loading-msg");
+const $storiesList = $(".stories-list");
 const $allStoriesList = $("#all-stories-list");
 const $userStoriesList =$("#own-stories-list");
 const $favoritesList = $("#favorites-stories-list");
